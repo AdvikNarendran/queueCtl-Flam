@@ -1,6 +1,7 @@
 import pytest
 import os
 import time
+import threading
 from queuectl.storage import Storage
 from queuectl.models import Job
 from queuectl.worker import Worker

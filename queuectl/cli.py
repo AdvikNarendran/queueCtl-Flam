@@ -1,6 +1,6 @@
 import json
 import typer
-from typing import Optional
+from typing import Optional, Any
 from .storage import Storage
 from .models import Job
 from .worker import Worker
@@ -51,13 +51,16 @@ def config_set(key: str, value: str):
     """Set configuration value"""
     try:
         # Try to convert string values to appropriate types
+        actual_value: Any
         if value.isdigit():
-            value = int(value)
+            actual_value = int(value)
         elif value.lower() in ('true', 'false'):
-            value = value.lower() == 'true'
+            actual_value = value.lower() == 'true'
+        else:
+            actual_value = value
         
-        config.set(key, value)
-        typer.echo(f"Configuration {key} set to {value}")
+        config.set(key, actual_value)
+        typer.echo(f"Configuration {key} set to {actual_value}")
     
     except Exception as e:
         typer.echo(f"Error setting configuration: {str(e)}", err=True)
