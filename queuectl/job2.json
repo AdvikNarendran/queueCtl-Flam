@@ -1,0 +1,4 @@
+{
+  "command": "echo hello",
+  "max_retries": 3
+}
